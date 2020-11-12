@@ -1,4 +1,4 @@
 .venv/
-superlists/__pycache__/
+__pycache__/
 db.sqlite3
 geckodriver.log

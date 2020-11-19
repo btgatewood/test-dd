@@ -11,6 +11,11 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
+    def assert_row_in_table(self, row_text):
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(row_text, [row.text for row in rows])
+
     def test_can_start_a_list_and_fetch_it_later(self):
         # User goes to the online to-do app's homepage.
         self.browser.get('http://localhost:8000')
@@ -32,10 +37,7 @@ class NewVisitorTest(unittest.TestCase):
         # groceries" in a to-do list.
         input_box.send_keys(Keys.ENTER)
         time.sleep(1)
-
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn('1. buy groceries', [row.text for row in rows])
+        self.assert_row_in_table('1. buy groceries')
 
         # A text box prompts the user to add another task.  User enters "cook
         # dinner".
@@ -45,10 +47,8 @@ class NewVisitorTest(unittest.TestCase):
         time.sleep(1)
 
         # The page updates again and displays both tasks in the to-do list.
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn('1. buy groceries', [row.text for row in rows])
-        self.assertIn('2. cook dinner', [row.text for row in rows])
+        self.assert_row_in_table('1. buy groceries')
+        self.assert_row_in_table('2. cook dinner')
 
         # User sees that the site has generated a unique URL to remember the
         # list.  There is some explanatory text.

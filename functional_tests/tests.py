@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 
 
-MAX_WAIT = 3
+MAX_WAIT = 2
 
 
 class NewVisitorTest(LiveServerTestCase):

@@ -100,5 +100,5 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertNotEqual(fred_list_url, george_list_url)
 
         # There is still no sign of Fred's list.
-        body_text = self.browser.get_element_by_tag_name('body').text
+        body_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('feed the cat', body_text)

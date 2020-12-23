@@ -83,7 +83,7 @@ class NewVisitorTest(LiveServerTestCase):
             input_box.location['x'] + input_box.size['width'] / 2, 
             512, delta=10)
         
-
+        
     
     def test_multiple_users_can_start_lists_at_different_urls(self):
         # Fred starts a new to-do list.

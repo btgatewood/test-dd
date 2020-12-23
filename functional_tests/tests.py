@@ -63,6 +63,28 @@ class NewVisitorTest(LiveServerTestCase):
         self.await_row_in_table('1. buy groceries')
         self.await_row_in_table('2. cook dinner')
     
+    def test_layout_and_styling(self):
+        # User goes to the home page.
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
+
+        # User notices the input box is centered.
+        input_box = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            input_box.location['x'] + input_box.size['width'] / 2, 
+            512, delta=10)
+        
+        # User starts a new list and sees the input is centered too.
+        input_box.send_keys('testing')
+        input_box.send_keys(Keys.ENTER)
+        self.await_row_in_table('1. testing')
+        input_box = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            input_box.location['x'] + input_box.size['width'] / 2, 
+            512, delta=10)
+        
+
+    
     def test_multiple_users_can_start_lists_at_different_urls(self):
         # Fred starts a new to-do list.
         self.browser.get(self.live_server_url)
